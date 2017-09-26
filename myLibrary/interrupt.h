@@ -3,10 +3,10 @@
 
 ISR(TIMER2_OVF_vect)
 {
-	f_tims_stop();
+	f_freq_stop();
 	mass_meters[k] = c_Hz*((TCNT0*0x10000)|(TCNT1));
 	k++;
-	f_tims_start();
+	f_freq_start();
 }
 
 ISR(ADC_vect)

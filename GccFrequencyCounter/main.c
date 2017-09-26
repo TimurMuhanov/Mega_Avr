@@ -28,16 +28,22 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 #include <stdlib.h>
+
 #include "..\myLibrary\global.h"
-#include "..\myLibrary\tims.h"
+
+//#include "..\myLibrary\tims.h"
 #include "..\myLibrary\ADC.h"
 #include "..\myLibrary\mytwi.h"
+
 #include "..\myLibrary\myLCDtwi.h"
 #include "..\myLibrary\output.h"
-#include "..\myLibrary\interrupt.h"
+
 #include "..\myLibrary\volt.h"
 #include "..\myLibrary\freq.h"
+#include "..\myLibrary\batt.h"
+#include "..\myLibrary\interrupt.h"
 #include "..\myLibrary\metering.h"
+
 #include "..\myLibrary\menu.h"
 
 #define _stop while (1) {}
@@ -52,9 +58,6 @@ int main(void)
 	asm volatile ("push r16");	// the last memory cells don't work because China
 	TWI_Init();
 	LCDw_Init(lcd_adr);
-	f_tims_init();
-	f_ADC_init();
-	k = 0;
 	
 	/*double l = 1/1;
 	f_output_p(l);
@@ -62,6 +65,7 @@ int main(void)
 	
 	asm volatile ("sei");		// the compiler doesn't this automatically
 	
+	k = 0;
 	i_menu = 0;
 	f_out_mess(mass_freq);
     while (1) 

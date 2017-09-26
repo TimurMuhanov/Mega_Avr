@@ -5,7 +5,8 @@
 
 #define meter_freq 1
 #define meter_volt 2
-#define N_menu 2
+#define meter_batt 3
+#define N_menu 3
 
 double mass_meters[N_meters],mean,err;
 uint8_t k;

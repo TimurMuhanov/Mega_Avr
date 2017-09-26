@@ -4,8 +4,9 @@
 #define end_of_mass 0x10
 
 const uint8_t mass_freq[]PROGMEM = {'F','r','e','q','M','e','t','e','r',end_of_mass};
-//const uint8_t mass_volt[]PROGMEM = {'V','o','l','t','M','e','t','e','r',end_of_mass};
-const uint8_t mass_volt[]PROGMEM = {0xC3,0xA8,0xCF,' ',' ',' ',' ',' ',' ',end_of_mass};
+const uint8_t mass_volt[]PROGMEM = {'V','o','l','t','M','e','t','e','r',end_of_mass};
+const uint8_t mass_batt[]PROGMEM = {'B','a','t','t','e','r','y',' ','C','h','a','r','g','e','r',end_of_mass};
+//const uint8_t mass_volt[]PROGMEM = {0xC3,0xA8,0xCF,' ',' ',' ',' ',' ',' ',end_of_mass};
 //const uint8_t mass_volt[]PROGMEM = "VoltMeter";
 //const uint8_t mass_menu[]PROGMEM = {&mass_freq,&mass_volt};
 
@@ -36,11 +37,14 @@ void main_menu(void)
 		switch (i_menu)
 		{
 			case meter_freq:
-			f_out_mess(mass_freq);
-			break;
+				f_out_mess(mass_freq);
+				break;
 			case meter_volt:
-			f_out_mess(mass_volt);
-			break;
+				f_out_mess(mass_volt);
+				break;
+			case meter_batt:
+				f_out_mess(mass_batt);
+				break;
 			default:
 			break;
 		}
@@ -51,15 +55,20 @@ void main_menu(void)
 		switch (i_menu)
 		{
 			case meter_freq:
-			f_metering(meter_freq,0);
-			lcdw_clear(lcd_adr);
-			f_output_freq();
-			break;
+				f_metering(meter_freq,0);
+				lcdw_clear(lcd_adr);
+				f_output_freq();
+				break;
 			case meter_volt:
-			f_metering(meter_volt,0);
-			lcdw_clear(lcd_adr);
-			f_output_volt();
-			break;
+				f_metering(meter_volt,0);
+				lcdw_clear(lcd_adr);
+				f_output_volt();
+				break;
+			case meter_batt:
+				f_metering(meter_batt,0);
+				lcdw_clear(lcd_adr);
+				f_output_batt();
+				break;
 			default:
 			break;
 		}
