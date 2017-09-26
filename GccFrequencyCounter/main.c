@@ -20,7 +20,6 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 #include <stdlib.h>
-//#include <string.h>
 #include "..\myLibrary\mytwi.h"
 #include "..\myLibrary\myLCDtwi.h"
 
@@ -114,15 +113,22 @@ void f_output_d(double t)
 	}
 	
 	t = f_for_output(t);
-	lcdw_putbyte(lcd_adr,0x2E,LCD_DATA);	//.
+	lcdw_putbyte(lcd_adr,'.',LCD_DATA);	//.
 	t = f_for_output(t);
 	t = f_for_output(t);
 	t = f_for_output(t);
-	lcdw_putbyte(lcd_adr,0x5E,LCD_DATA);	//^
+	lcdw_putbyte(lcd_adr,'*',LCD_DATA);
+	lcdw_putbyte(lcd_adr,'1',LCD_DATA);
+	lcdw_putbyte(lcd_adr,'0',LCD_DATA);
+	lcdw_putbyte(lcd_adr,'^',LCD_DATA);	//^
 	if (deg < 0)
 	{
-		lcdw_putbyte(lcd_adr,0x2D,LCD_DATA);	//-
+		lcdw_putbyte(lcd_adr,'-',LCD_DATA);	//-
 		deg = abs(deg);
+	}
+	else
+	{
+		lcdw_putbyte(lcd_adr,'+',LCD_DATA);
 	}
 	deg += 0x30;
 	if (deg == 58)
@@ -130,6 +136,7 @@ void f_output_d(double t)
 		deg = 0xF3;
 	}
 	lcdw_putbyte(lcd_adr,deg,LCD_DATA);
+	lcdw_putbyte(lcd_adr,' ',LCD_DATA);
 }
 
 void f_output_p(double x)
@@ -158,11 +165,11 @@ void f_output_freq(void)
 {
 	lcdw_gotoxy(lcd_adr,0,0);
 	f_output_d(mean);
-	lcdw_putbyte(lcd_adr,0x48,LCD_DATA);	// Hz
-	lcdw_putbyte(lcd_adr,0x7A,LCD_DATA);
+	lcdw_putbyte(lcd_adr,'H',LCD_DATA);	// Hz
+	lcdw_putbyte(lcd_adr,'z',LCD_DATA);
 	lcdw_gotoxy(lcd_adr,0,1);
 	f_output_d(err);
-	lcdw_putbyte(lcd_adr,0x25,LCD_DATA);	// %
+	lcdw_putbyte(lcd_adr,'%',LCD_DATA);	// %
 }
 
 void f_ADC_init(void)
@@ -191,7 +198,7 @@ void f_output_volt(void)
 	f_output_d(mean);
 	lcdw_gotoxy(lcd_adr,0,1);
 	f_output_d(err);
-	lcdw_putbyte(lcd_adr,0x25,LCD_DATA);	// %
+	lcdw_putbyte(lcd_adr,'%',LCD_DATA);	// %
 }
 
 void f_metering(uint8_t meter, uint8_t second_arg)
@@ -315,6 +322,7 @@ int main(void)
 	f_tims_init();
 	f_ADC_init();
 	k = 0;
+	
 	/*double l = 1/1;
 	f_output_p(l);
 	_stop;*/
