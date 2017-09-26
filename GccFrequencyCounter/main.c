@@ -98,7 +98,7 @@ void f_output_d(double t)
 	int8_t deg = 0;
 	if (t < 1)
 	{
-		while ((t < 1)&&(deg < 8))
+		while ((t < 1)&&(deg != -10))
 		{
 			t *= 10;
 			deg--;
@@ -106,7 +106,7 @@ void f_output_d(double t)
 	}
 	else
 	{
-		while ((t>=10)&&(deg > -8))
+		while ((t>=10)&&(deg != 10))
 		{
 			t /= 10;
 			deg++;
@@ -125,6 +125,10 @@ void f_output_d(double t)
 		deg = abs(deg);
 	}
 	deg += 0x30;
+	if (deg == 58)
+	{
+		deg = 0xF3;
+	}
 	lcdw_putbyte(lcd_adr,deg,LCD_DATA);
 }
 
