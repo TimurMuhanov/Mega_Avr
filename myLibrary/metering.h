@@ -9,7 +9,7 @@ void f_metering(uint8_t meter, uint8_t second_arg)
 		f_freq_start();
 		while (k < N_meters)
 		{
-			f_output_p(k/N_meters);
+			f_output_p(k/(double)N_meters);
 			_delay_ms(10);
 		}
 		f_freq_stop();
@@ -22,7 +22,7 @@ void f_metering(uint8_t meter, uint8_t second_arg)
 		{
 			while (ADCSRA&0x40) {}
 			f_ADC_start(second_arg);
-			f_output_p(k/N_meters);
+			f_output_p(k/(double)N_meters);
 			_delay_ms(10);
 		}
 	}

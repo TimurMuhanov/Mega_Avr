@@ -59,10 +59,6 @@ int main(void)
 	TWI_Init();
 	LCDw_Init(lcd_adr);
 	
-	/*double l = 1/1;
-	f_output_p(l);
-	_stop;*/
-	
 	asm volatile ("sei");		// the compiler doesn't this automatically
 	
 	k = 0;
